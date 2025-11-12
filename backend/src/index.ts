@@ -2,6 +2,8 @@ import express from "express" ;
 import dotenv from "dotenv" ;
 import cros from "cors";
 
+import authRouter from "./routes/auth.routes.js"
+
 import { db_connec } from "./lib/db.js";
 
 dotenv.config();
@@ -13,9 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cros());
 
-app.get("/",(req,res)=>{
-    res.json("hii it working");
-})
+app.use("/auth/v1",authRouter)
 
 
 app.listen(port ,()=>{
