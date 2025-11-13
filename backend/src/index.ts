@@ -6,6 +6,7 @@ import db_Connect from "./lib/db.js";
 import cookieParser from "cookie-parser";
 
 
+
 dotenv.config( );
 
 const app = express();
@@ -15,7 +16,9 @@ app.use(cors());
 app.use(cookieParser())
 app.use("/auth/v1",authRoute)
 
-app.listen(3000,()=>{
+const port:number = Number(process.env.SERVER_PORT) || 3000 ; 
+
+app.listen(port,()=>{
     db_Connect(process.env.MONGO_DB_URL!);
     console.log("server is running ");
 })
