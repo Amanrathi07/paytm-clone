@@ -2,6 +2,7 @@ import express from "express";
 import dotenv  from "dotenv" ;
 import cors from "cors";
 import authRoute from "./routes/auth.routes.js";
+import db_Connect from "./lib/db.js";
 
 
 
@@ -15,5 +16,6 @@ app.use(cors());
 app.use("/auth/v1",authRoute)
 
 app.listen(3002,()=>{
-    console.log("server is running ")
+    db_Connect(process.env.MONGO_DB_URL!);
+    console.log("server is running ");
 })
