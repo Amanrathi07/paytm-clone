@@ -5,9 +5,11 @@ import jwt_generate from "../utils/jwt.utils.js";
 
 export async function getAllUser(req: Request, res: Response) {
   try {
+        //@ts-ignore
     if (!req.id) {
       return res.status(401).json({ message: "Unauthorized" });
     }
+        //@ts-ignore
     const myid = req.id;
     const allUser = await userModel.find({ _id: { $ne: myid } }).select("-password");
     return res.status(200).json({ allUser });
@@ -57,7 +59,7 @@ export async function signIn(req: Request, res: Response) {
     if (!userData) {
       return res.status(404).json({ message: "user dosn't exist" });
     }
-
+        //@ts-ignore
     const isPasswordCorrect = bcrypt.compare(password, userData.password);
 
     if (isPasswordCorrect) {
@@ -87,7 +89,7 @@ export async function changeUserData(req: Request, res: Response) {
     if (newPassword) {
       updateData.password = await bcrypt.hash(newPassword, 10);
     }
-
+        //@ts-ignore
     const userData = await userModel.findByIdAndUpdate(req.id, updateData);
     return res.status(200).json({
       message: "user data updated",
@@ -100,6 +102,7 @@ export async function changeUserData(req: Request, res: Response) {
 
 export async function deleatUser(req: Request, res: Response) {
   try {
+        //@ts-ignore
     const dbResponce = await userModel.findByIdAndDelete(req.id);
     if (!dbResponce) {
       return res.status(404).json({ message: "User not found" });

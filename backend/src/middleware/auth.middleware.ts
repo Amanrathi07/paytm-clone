@@ -12,6 +12,7 @@ export async function checkToken(req:Request,res:Response,next:NextFunction ){
     const decoded = jwt.verify(myJwt , process.env.JWT_KEY!)as{id:string};
 
     if(decoded){
+        //@ts-ignore
         req.id = decoded.id ;
         return next();
     }
