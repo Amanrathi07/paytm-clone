@@ -15,7 +15,7 @@ app.use(cors());
 
 app.use("/auth/v1",authRoute)
 
-app.listen(3002,()=>{
+app.listen(3000,()=>{
     db_Connect(process.env.MONGO_DB_URL!);
     console.log("server is running ");
 })
