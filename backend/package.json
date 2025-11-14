@@ -15,7 +15,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^7.4.3",
-    "mongoose": "^8.19.3"
+    "mongoose": "^8.19.3",
+    "cookie-parser": "^1.4.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
@@ -23,6 +24,8 @@
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "@types/cookie-parser": "^1.4.10"
+
   }
 }

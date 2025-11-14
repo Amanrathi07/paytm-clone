@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import type { Request, Response } from "express";
 import userModel from "../model/auth.model.js";
 import jwt_generate from "../utils/jwt.utils.js";
+import { accountModel } from "../model/account.model.js";
 
 export async function getAllUser(req: Request, res: Response) {
   try {
@@ -34,7 +35,12 @@ export async function signUp(req: Request, res: Response) {
       email,
       password: hassPassword,
     });
+    
     await newUser.save();
+    await accountModel.create({
+      balance:100 ,
+      userId : newUser._id
+    })
     jwt_generate(newUser._id, res);
 
     return res.status(200).json({
@@ -60,7 +66,7 @@ export async function signIn(req: Request, res: Response) {
       return res.status(404).json({ message: "user dosn't exist" });
     }
         //@ts-ignore
-    const isPasswordCorrect = bcrypt.compare(password, userData.password);
+    const isPasswordCorrect =await bcrypt.compare(password, userData.password);
 
     if (isPasswordCorrect) {
       jwt_generate(userData._id, res);
