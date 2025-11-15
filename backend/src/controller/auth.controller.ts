@@ -6,16 +6,18 @@ import { accountModel } from "../model/account.model.js";
 
 export async function getAllUser(req: Request, res: Response) {
   try {
-        //@ts-ignore
+    //@ts-ignore
     if (!req.id) {
       return res.status(401).json({ message: "Unauthorized" });
     }
-        //@ts-ignore
+    //@ts-ignore
     const myid = req.id;
-    const allUser = await userModel.find({ _id: { $ne: myid } }).select("-password");
+    const allUser = await userModel
+      .find({ _id: { $ne: myid } })
+      .select("-password");
     return res.status(200).json({ allUser });
   } catch (error) {
-    console.log("getAllUser function error",error)
+    console.log("getAllUser function error", error);
     return res.status(500).json({ message: "internal server error" });
   }
 }
@@ -35,12 +37,12 @@ export async function signUp(req: Request, res: Response) {
       email,
       password: hassPassword,
     });
-    
+
     await newUser.save();
     await accountModel.create({
-      balance:100 ,
-      userId : newUser._id
-    })
+      balance: 100,
+      userId: newUser._id,
+    });
     jwt_generate(newUser._id, res);
 
     return res.status(200).json({
@@ -65,8 +67,8 @@ export async function signIn(req: Request, res: Response) {
     if (!userData) {
       return res.status(404).json({ message: "user dosn't exist" });
     }
-        //@ts-ignore
-    const isPasswordCorrect =await bcrypt.compare(password, userData.password);
+    //@ts-ignore
+    const isPasswordCorrect = await bcrypt.compare(password, userData.password);
 
     if (isPasswordCorrect) {
       jwt_generate(userData._id, res);
@@ -95,20 +97,20 @@ export async function changeUserData(req: Request, res: Response) {
     if (newPassword) {
       updateData.password = await bcrypt.hash(newPassword, 10);
     }
-        //@ts-ignore
+    //@ts-ignore
     const userData = await userModel.findByIdAndUpdate(req.id, updateData);
     return res.status(200).json({
       message: "user data updated",
     });
   } catch (error) {
-    console.log("changeUserData function error ", error)
+    console.log("changeUserData function error ", error);
     return res.status(500).json({ message: "internal server error" });
   }
 }
 
 export async function deleatUser(req: Request, res: Response) {
   try {
-        //@ts-ignore
+    //@ts-ignore
     const dbResponce = await userModel.findByIdAndDelete(req.id);
     if (!dbResponce) {
       return res.status(404).json({ message: "User not found" });
@@ -117,5 +119,29 @@ export async function deleatUser(req: Request, res: Response) {
   } catch (error) {
     console.log("deleatUser function error ", error);
     return res.status(500).json({ message: "internal server error" });
+  }
+}
+
+export async function userInfo(req: Request, res: Response) {
+  try {
+    const userData = await userModel.findOne({
+      //@ts-ignore
+      _id: req.id,
+    }).select("-password") ;
+
+    if (userData) {
+      const accoutData = await accountModel.findOne({
+      //@ts-ignore
+        userId : req.id
+      })
+      return res.status(200).json({
+        myData: userData,
+      });
+    }
+
+    return res.status(404).json({ message: "user not found" });
+  } catch (error) {
+    console.log("userInfo function error",error);
+    return res.status(500).json({message:"internal server error"});
   }
 }
