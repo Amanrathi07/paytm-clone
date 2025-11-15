@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import type { Request, Response } from "express";
 import userModel from "../model/auth.model.js";
 import jwt_generate from "../utils/jwt.utils.js";
-import { accountModel } from "../model/account.model.js";
+import accountModel  from "../model/account.model.js";
 
 export async function getAllUser(req: Request, res: Response) {
   try {

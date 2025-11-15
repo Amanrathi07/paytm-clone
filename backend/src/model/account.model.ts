@@ -9,5 +9,6 @@ const accountSchema = new Schema({
         required: true
     }
 },{timestamps:true})
+ const accountModel = model("Account",accountSchema) ;
 
-export const accountModel = model("Account",accountSchema)
+ export default accountModel ;
