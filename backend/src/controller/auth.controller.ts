@@ -135,6 +135,7 @@ export async function userInfo(req: Request, res: Response) {
         userId : req.id
       })
       return res.status(200).json({
+        accoutData ,
         myData: userData,
       });
     }

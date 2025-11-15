@@ -15,7 +15,6 @@ export async function checkToken(req:Request,res:Response,next:NextFunction ){
         //@ts-ignore
         req.id = decoded.userID ;
         //@ts-ignore
-        console.log("i add req.id" , req.id)
         return next();
     }
     return res.status(404).json({message:"jwt dosn't match "})

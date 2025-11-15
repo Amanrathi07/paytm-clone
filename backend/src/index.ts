@@ -21,5 +21,6 @@ const port:number = Number(process.env.SERVER_PORT)  ;
 
 app.listen(port,()=>{
     db_Connect(process.env.MONGO_DB_URL!);
-    console.log("server is running ");
+    console.log(`Server running at http://localhost:${port}`);
+
 })
