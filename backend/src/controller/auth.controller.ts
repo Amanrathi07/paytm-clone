@@ -61,9 +61,9 @@ export async function signIn(req: Request, res: Response) {
       return res.status(400).json({ message: "All fields are required" });
     }
     const userData = await userModel
-      .findOne({ email: email })
+      .findOne({ email })
       .select("+password");
-
+    console.log(userData)
     if (!userData) {
       return res.status(404).json({ message: "user dosn't exist" });
     }
