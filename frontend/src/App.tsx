@@ -1,17 +1,24 @@
-import { Route, Routes } from "react-router-dom";
-import Signup from "./pages/signup";
-import Signin from "./pages/signin";
-import Profile from "./pages/profile";
 
-export default function App (){
-  return(
-   <Routes>
-    <Route path="/"  element={<div>home</div>} />
-    <Route path="/dashboard"  element={<div>dashboard</div>}/>
-    <Route path="/signin"  element={<Signin />}/>
-    <Route path="/signup"  element={<Signup />}/>
-    <Route path="/profile"  element={<Profile  />}/>
-    <Route path="/profile"  element={<div>transfer</div>}/>
-   </Routes>
+import axios from 'axios'
+
+function App() {
+
+  async function btnClick(){
+    const responce =await axios.post("http://localhost:3001/auth/v1/signin",{
+       "email": "aman@gmail.com",
+       "password": "aman@gmail.com"
+    },{withCredentials:true});
+
+   
+  }
+
+  return (
+    <div>
+      <button onClick={btnClick}>
+        clickme
+      </button>
+    </div>
   )
 }
+
+export default App
