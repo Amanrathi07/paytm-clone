@@ -146,6 +146,7 @@ export async function userInfo(req: Request, res: Response) {
     return res.status(404).json(
       { 
         message: "user not found" , 
+        //@ts-ignore
         userId : req.id 
       });
   } catch (error) {
@@ -158,6 +159,7 @@ export async function userInfo(req: Request, res: Response) {
 export async function checkAuth(req:Request , res:Response) {
   try {
     console.log("get the request in checkauth")
+        //@ts-ignore
     return res.status(200).json({message:"user is logined " ,userID:req.id})
   } catch (error) {
     console.log("checkAuth function error",error);
