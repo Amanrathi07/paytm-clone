@@ -2,6 +2,7 @@ import { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 interface SignupForm {
   name: string;
@@ -16,6 +17,12 @@ export default function Signup() {
     password: ""
   });
 
+  async function formhandel(e) {
+    e.preventDefault();
+
+    await axios.post(`${import.meta.env.BASE_URL}/auth/v1/signup`,{form},{withCredentials:true})
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-700 p-6">
       <div className="w-full max-w-md bg-white/10 backdrop-blur-xl border border-white/20 p-8 rounded-2xl space-y-6">
@@ -24,7 +31,8 @@ export default function Signup() {
         <p className="text-center text-gray-300">Signup to continue</p>
 
         <div className="space-y-5">
-          <Input
+         <form onSubmit={(e)=>{formhandel(e)}} >
+           <Input
             placeholder="Name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -43,6 +51,7 @@ export default function Signup() {
           />
 
           <Button type="submit">Signup</Button>
+         </form>
         </div>
 
         <p className="text-center text-gray-300">
