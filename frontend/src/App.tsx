@@ -1,24 +1,16 @@
+import {  Routes, Route } from "react-router-dom";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
+import Profile from "./pages/Profile";
 
-import axios from 'axios'
-
-function App() {
-
-  async function btnClick(){
-    const responce =await axios.post("http://localhost:3001/auth/v1/signin",{
-       "email": "aman@gmail.com",
-       "password": "aman@gmail.com"
-    },{withCredentials:true});
-
-   
-  }
-
+export default function App() {
+  
   return (
-    <div>
-      <button onClick={btnClick}>
-        clickme
-      </button>
-    </div>
-  )
-}
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/profile" element={ <Profile  />} />
 
-export default App
+      </Routes>
+  );
+}
