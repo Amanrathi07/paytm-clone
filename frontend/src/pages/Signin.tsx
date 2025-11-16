@@ -1,18 +1,34 @@
 import { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
+import axios from "axios";
 
 interface SigninForm {
   email: string;
   password: string;
 }
+interface props {
+  setAuth : (value:boolean)=>void
+}
 
-export default function Signin() {
+export default function Signin({setAuth}:props) {
+
+  let navigate = useNavigate();  
+
   const [form, setForm] = useState<SigninForm>({
     email: "",
     password: ""
   });
+    async function formhandel(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/v1/signin`,{...form},{withCredentials:true})
+
+    setAuth(true)
+     await navigate("/")
+
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-700 p-6">
@@ -22,7 +38,8 @@ export default function Signin() {
         <p className="text-center text-gray-300">Signin to continue</p>
 
         <div className="space-y-5">
-          <Input
+          <form onSubmit={formhandel}>
+            <Input
             placeholder="Email"
             value={form.email}
             type="email"
@@ -36,6 +53,7 @@ export default function Signin() {
           />
 
           <Button type="submit">Signin</Button>
+          </form>
         </div>
 
         <p className="text-center text-gray-300">

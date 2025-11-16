@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface SignupForm {
@@ -10,17 +10,27 @@ interface SignupForm {
   password: string;
 }
 
-export default function Signup() {
+interface props {
+  setAuth : (value:boolean)=>void
+}
+
+export default function Signup({setAuth}:props) {
+
+  let navigate = useNavigate();  
+
+
   const [form, setForm] = useState<SignupForm>({
     name: "",
     email: "",
     password: ""
   });
 
-  async function formhandel(e) {
+  async function formhandel(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/v1/signup`,{...form},{withCredentials:true})
+    setAuth(true)
+     await navigate("/")
 
-    await axios.post(`${import.meta.env.BASE_URL}/auth/v1/signup`,{form},{withCredentials:true})
   }
 
   return (

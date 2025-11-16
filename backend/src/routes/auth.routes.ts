@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { changeUserData, deleatUser, getAllUser, signIn, signUp, userInfo } from "../controller/auth.controller.js";
+import { changeUserData, checkAuth, deleatUser, getAllUser, signIn, signUp, userInfo } from "../controller/auth.controller.js";
 import { checkToken } from "../middleware/auth.middleware.js";
 
 
@@ -16,5 +16,7 @@ route.delete("/user",checkToken,deleatUser);
 route.get("/user",checkToken,userInfo);
 
 route.get("/users",checkToken,getAllUser);
+
+route.get("/check",checkToken,checkAuth)
 
 export default route ;

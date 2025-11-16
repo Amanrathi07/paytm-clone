@@ -23,7 +23,7 @@ export default function Profile() {
   async function getData() {
     try {
       const response = await axios.get<ResponseProps>(
-        "http://localhost:3001/auth/v1/user",
+        `${import.meta.env.VITE_BASE_URL}/auth/v1/profile`,
         { withCredentials: true }
       );
       setData(response.data);
