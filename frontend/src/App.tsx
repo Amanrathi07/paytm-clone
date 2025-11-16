@@ -1,11 +1,16 @@
-import { Button } from "@/components/ui/button"
+import { Route, Routes } from "react-router-dom";
+import Signup from "./pages/signup";
+import Signin from "./pages/signin";
 
-function App() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button variant="default" className="bg-black text-white">Click me</Button>
-    </div>
+export default function App (){
+  return(
+   <Routes>
+    <Route path="/"  element={<div>home</div>} />
+    <Route path="/dashboard"  element={<div>dashboard</div>}/>
+    <Route path="/signin"  element={<Signin />}/>
+    <Route path="/signup"  element={<Signup />}/>
+    <Route path="/profile"  element={<div>profile</div>}/>
+    <Route path="/profile"  element={<div>transfer</div>}/>
+   </Routes>
   )
 }
-
-export default App
