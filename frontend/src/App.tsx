@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Signup from "./pages/signup";
 import Signin from "./pages/signin";
+import Profile from "./pages/profile";
 
 export default function App (){
   return(
@@ -9,7 +10,7 @@ export default function App (){
     <Route path="/dashboard"  element={<div>dashboard</div>}/>
     <Route path="/signin"  element={<Signin />}/>
     <Route path="/signup"  element={<Signup />}/>
-    <Route path="/profile"  element={<div>profile</div>}/>
+    <Route path="/profile"  element={<Profile  />}/>
     <Route path="/profile"  element={<div>transfer</div>}/>
    </Routes>
   )

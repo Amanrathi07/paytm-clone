@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import Heading from "../component/heading";
 import Input from "../component/input";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Signup() {
-  function formHandel() {
-    
+
+    const [data , setData] = useState({name:"" ,email:"",password:"" })
+
+  async function formHandel() {
+    const responce =await axios.post("http://localhost:3000/auth/v1/signup",data) ;
+  
   }
 
   return (
@@ -19,11 +25,13 @@ export default function Signup() {
             formHandel();
           }}
         >
-          <Input label="Full Name" placeholder="enter yours name" />
+          <Input label="Full Name" placeholder="enter yours name" onChange={(e)=>{setData((data)=>({...data,name:e.target.value}))}}/>
 
-          <Input label="Email" type="email" placeholder="you@example.com" />
+          <Input label="Email" type="email" placeholder="you@example.com" 
+           onChange={(e)=>{setData((data)=>({...data,email:e.target.value}))}}/>
 
-          <Input label="Password" type="password" placeholder="••••••••" />
+          <Input label="Password" type="password" placeholder="••••••••" 
+           onChange={(e)=>{setData((data)=>({...data,password:e.target.value}))}}/>
 
           <button
             type="submit"

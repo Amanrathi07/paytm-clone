@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import Heading from "../component/heading";
 import Input from "../component/input";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Signin() {
-
-    function formHandel() {
+        const [data , setData] = useState({email:"",password:"" })
     
+    async function formHandel() {
+         const responce =await axios.post("http://localhost:3000/auth/v1/signin",data) ;
+        console.log(responce)
   }
 
   return (
@@ -28,14 +32,14 @@ export default function Signin() {
             label="Email"
             type="email"
             placeholder="you@example.com"
-            
+            onChange={(e)=>{setData((data)=>({...data,email:e.target.value}))}}
           />
 
           <Input
             label="Password"
             type="password"
             placeholder="••••••••"
-            
+            onChange={(e)=>{setData((data)=>({...data,password:e.target.value}))}}
           />
 
           <button

@@ -23,6 +23,8 @@ export async function getAllUser(req: Request, res: Response) {
 }
 
 export async function signUp(req: Request, res: Response) {
+
+
   try {
     const { name, email, password } = req.body;
     const existingUser = await userModel.findOne({ email: email });
@@ -123,6 +125,7 @@ export async function deleatUser(req: Request, res: Response) {
 }
 
 export async function userInfo(req: Request, res: Response) {
+  console.log("comming")
   try {
     const userData = await userModel.findOne({
       //@ts-ignore

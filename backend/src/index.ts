@@ -12,8 +12,14 @@ dotenv.config( );
 const app = express();
 
 app.use(express.json());
-app.use(cors());
-app.use(cookieParser())
+app.use(
+  cors({
+    origin: "*",  
+    credentials: true,
+  })
+);
+
+app.use(cookieParser( ))
 app.use("/auth/v1",authRoute)
 app.use("/transfer/v1",accountRoute)
 
