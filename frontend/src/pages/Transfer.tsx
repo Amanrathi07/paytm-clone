@@ -1,8 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../components/ui/Navbar";
 import toast from "react-hot-toast";
+import { axiosInstance } from "../lib/axios";
 
 export default function Transfer() {
   const { reseverInfo } = useParams();
@@ -20,11 +20,9 @@ export default function Transfer() {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/transfer/v1/transfer`,
-        { amount, toAccount: reseverID },
-        { withCredentials: true }
-      );
+      const response = await axiosInstance.post("/transfer/transfer",{ amount, toAccount: reseverID })
+      
+      
 
       if (response.status === 200) {
         toast.success(response.data.message);

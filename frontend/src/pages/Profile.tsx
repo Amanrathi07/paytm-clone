@@ -1,7 +1,6 @@
-// Profile.tsx
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Navbar from "../components/ui/Navbar";
+import { axiosInstance } from "../lib/axios";
 
 interface ResponseProps {
   myData: { name: string; email: string; createdAt: string };
@@ -15,10 +14,7 @@ export default function Profile() {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await axios.get<ResponseProps>(
-          `${import.meta.env.VITE_BASE_URL}/auth/v1/user`,
-          { withCredentials: true }
-        );
+        const response = await axiosInstance.get("/auth/user")
         setData(response.data);
       } catch (err) {
         console.error("Error fetching user data:", err);

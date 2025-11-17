@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/ui/Navbar";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "../lib/axios";
 
 interface User {
   _id: string;
@@ -19,9 +19,7 @@ export default function Dashboard() {
 
   async function getUsers() {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/v1/users`, {
-        withCredentials: true,
-      });
+      const res = await axiosInstance.get("/auth/users")
       setUsers(res.data.allUser);
     } catch (err) {
       console.error(err);

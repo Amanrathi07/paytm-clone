@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { axiosInstance } from "../lib/axios";
 
 interface SignupForm {
   name: string;
@@ -27,9 +27,9 @@ export default function Signup({setAuth}:props) {
 
   async function formhandel(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/v1/signup`,{...form},{withCredentials:true})
+    await axiosInstance.post("/auth/signup",{...form})
     setAuth(true)
-     await navigate("/")
+    await navigate("/")
 
   }
 

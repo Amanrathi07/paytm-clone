@@ -5,6 +5,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/CounterProvider";
+import { axiosInstance } from "../../lib/axios";
 
 function Navbar() {
   const { setAuth} = useContext(AuthContext)
@@ -19,10 +20,7 @@ function Navbar() {
 
   async function logout() {
   try {
-    const responce = await axios.get(
-      `${import.meta.env.VITE_BASE_URL}/logout`,
-      { withCredentials: true }
-    );
+    const responce = await axiosInstance.get("/auth/logout");
     toast.success(responce.data.message)
   //@ts-ignore
     setAuth(false)
