@@ -22,7 +22,6 @@ function Navbar() {
       { withCredentials: true }
     );
     toast.success(responce.data.message)
-    setAuth(false)
     navigation("/signin");
   } catch (error) {
     console.log("Logout error:", error);

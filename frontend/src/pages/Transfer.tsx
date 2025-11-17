@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 export default function Transfer() {
   const { reseverInfo } = useParams();
+  //@ts-ignore
   const [name ,reseverID ] = reseverInfo?.split("~") 
   const [amount, setAmount] = useState<number>(0);
   const [loading, setLoading] = useState(false);
