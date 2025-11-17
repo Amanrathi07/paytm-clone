@@ -3,10 +3,10 @@ import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import Dashboard from "./pages/Dashboard";
 import Transfer from "./pages/Transfer";
 import {AuthContext } from "./context/CounterProvider";
+import { axiosInstance } from "./lib/axios";
 
 export default function App() {
   const {auth , setAuth} = useContext(AuthContext);
@@ -14,10 +14,7 @@ export default function App() {
 
   async function checkAuth() {
     try {
-      const response = (
-        await axios.get(`${import.meta.env.VITE_BASE_URL}/auth/v1/check`, {
-          withCredentials: true,
-        })
+      const response = (await axiosInstance.get("/auth/check")
       ).data;
   //@ts-ignore
       if (response.userID) setAuth(true);

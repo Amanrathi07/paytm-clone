@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { HiMenu, HiX } from "react-icons/hi"; 
-import axios from "axios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/CounterProvider";
 import { axiosInstance } from "../../lib/axios";
