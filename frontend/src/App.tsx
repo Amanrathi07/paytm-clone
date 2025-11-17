@@ -4,6 +4,8 @@ import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Dashboard from "./pages/Dashboard";
+import Transfer from "./pages/Transfer";
 
 export default function App() {
   const [auth, setAuth] = useState(false);
@@ -41,8 +43,12 @@ export default function App() {
   return (
     <Routes>
       <Route
+        path="/transfer/:reseverInfo"
+        element={auth ? <Transfer /> : <Navigate to="/signin" />}
+      />
+      <Route
         path="/"
-        element={auth ? <div>Dashboard</div> : <Navigate to="/signin" />}
+        element={auth ? <Dashboard /> : <Navigate to="/signin" />}
       />
 
       <Route

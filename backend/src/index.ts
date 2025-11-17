@@ -26,7 +26,11 @@ app.use(cookieParser( ))
 app.use("/auth/v1",authRoute)
 app.use("/transfer/v1",accountRoute)
 
-
+app.get("/logout",(req ,res)=>{
+  console.log("logout")
+  res.clearCookie("jwt");
+  return res.status(200).json({ message: "Logged out" });
+})
 
 const port:number = Number(process.env.SERVER_PORT)  ; 
 

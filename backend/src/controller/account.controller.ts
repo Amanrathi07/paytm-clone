@@ -6,7 +6,7 @@ export async function transfer(req: Request, res: Response) {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const { toAccount, ammount } = req.body;
+    const { toAccount, amount } = req.body;
 
     const userAccountInfo = await accountModel
       .findOne({
@@ -16,7 +16,7 @@ export async function transfer(req: Request, res: Response) {
       .session(session);
 
     //@ts-ignore
-    if (!userAccountInfo || userAccountInfo.balance < ammount) {
+    if (!userAccountInfo || userAccountInfo.balance < amount) {
       await session.abortTransaction();
       await session.endSession();
 
@@ -38,13 +38,13 @@ export async function transfer(req: Request, res: Response) {
     await accountModel.updateOne(
       //@ts-ignore
       { userId: req.id },
-      { $inc: { balance: -ammount } },
+      { $inc: { balance: -amount } },
       { session }
     );
 
     await accountModel.updateOne(
       { userId: toAccount },
-      { $inc: { balance: ammount } },
+      { $inc: { balance: amount } },
       { session }
     );
 
