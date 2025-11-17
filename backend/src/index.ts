@@ -27,16 +27,10 @@ app.use(
 
 
 
-
 app.use(cookieParser( ))
-app.use("/auth/v1",authRoute)
-app.use("/transfer/v1",accountRoute)
+app.use("/v1/auth",authRoute)
+app.use("/v1/transfer",accountRoute)
 
-app.get("/logout",(req ,res)=>{
-  console.log("logout")
-  res.clearCookie("jwt");
-  return res.status(200).json({ message: "Logged out" });
-})
 
 
 
@@ -56,7 +50,7 @@ if (process.env.NODE_ENV === "production") {
 
 
 
-const port = process.env.PORT || process.env.SERVER_PORT || 3000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
   db_Connect(process.env.MONGO_DB_URL!);

@@ -65,7 +65,6 @@ export async function signIn(req: Request, res: Response) {
     const userData = await userModel
       .findOne({ email })
       .select("+password");
-    console.log(userData)
     if (!userData) {
       return res.status(404).json({ message: "user dosn't exist" });
     }
@@ -125,7 +124,6 @@ export async function deleatUser(req: Request, res: Response) {
 }
 
 export async function userInfo(req: Request, res: Response) {
-  console.log("comming")
   try {
     const userData = await userModel.findOne({
       //@ts-ignore
@@ -158,7 +156,6 @@ export async function userInfo(req: Request, res: Response) {
 
 export async function checkAuth(req:Request , res:Response) {
   try {
-    console.log("get the request in checkauth")
         //@ts-ignore
     return res.status(200).json({message:"user is logined " ,userID:req.id})
   } catch (error) {
@@ -166,3 +163,10 @@ export async function checkAuth(req:Request , res:Response) {
     return res.status(500).json({message:"internal server error"});
   }
 }
+
+
+export async function logout(req:Request , res:Response) {
+  res.clearCookie("jwt");
+  return res.status(200).json({ message: "Logged out" });
+}
+
