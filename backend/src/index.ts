@@ -56,14 +56,9 @@ if (process.env.NODE_ENV === "production") {
 
 
 
+const port = process.env.PORT || process.env.SERVER_PORT || 3000;
 
-
-
-
-const port:number = Number(process.env.SERVER_PORT)  ; 
-
-app.listen(port,()=>{
-    db_Connect(process.env.MONGO_DB_URL!);
-    console.log(`Server running at http://localhost:${port}`);
-
-})
+app.listen(port, () => {
+  db_Connect(process.env.MONGO_DB_URL!);
+  console.log(`Server running at http://localhost:${port}`);
+});
