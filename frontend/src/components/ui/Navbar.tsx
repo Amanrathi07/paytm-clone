@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { HiMenu, HiX } from "react-icons/hi"; 
 import axios from "axios";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../context/CounterProvider";
 
 function Navbar() {
+  const { setAuth} = useContext(AuthContext)
   const navigation = useNavigate()
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +24,8 @@ function Navbar() {
       { withCredentials: true }
     );
     toast.success(responce.data.message)
+  //@ts-ignore
+    setAuth(false)
     navigation("/signin");
   } catch (error) {
     console.log("Logout error:", error);

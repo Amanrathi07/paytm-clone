@@ -2,13 +2,14 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Profile from "./pages/Profile";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Dashboard from "./pages/Dashboard";
 import Transfer from "./pages/Transfer";
+import {AuthContext } from "./context/CounterProvider";
 
 export default function App() {
-  const [auth, setAuth] = useState(false);
+  const {auth , setAuth} = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
   async function checkAuth() {
@@ -18,10 +19,12 @@ export default function App() {
           withCredentials: true,
         })
       ).data;
-
+  //@ts-ignore
       if (response.userID) setAuth(true);
+  //@ts-ignore
       else setAuth(false);
     } catch (err) {
+  //@ts-ignore
       setAuth(false);
     } finally {
       setLoading(false);
@@ -41,6 +44,7 @@ export default function App() {
   }
 
   return (
+    
     <Routes>
       <Route
         path="/transfer/:reseverInfo"
@@ -68,5 +72,7 @@ export default function App() {
 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
+  
+
   );
 }

@@ -31,7 +31,7 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-700">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-700">
         <p className="text-white text-xl animate-pulse">Loading...</p>
       </div>
     );
@@ -39,7 +39,7 @@ export default function Profile() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-700">
+      <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-slate-900 to-slate-700">
         <p className="text-red-500 text-xl">Failed to load profile.</p>
       </div>
     );
